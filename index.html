@@ -8,12 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0e1a14; --paper: #f4efe6; --paper-2: #ebe4d6;
-    --accent: #c8412c; --accent-2: #1c5d4a; --gold: #b08a3a;
-    --muted: #6b6356; --warn: #8a3a1a;
-    --d10: #1c5d4a; --rl: #c8412c;
-  }
+  :root { --ink: #0e1a14; --paper: #f4efe6; --paper-2: #ebe4d6; --accent: #c8412c; --accent-2: #1c5d4a; --gold: #b08a3a; --muted: #6b6356; --warn: #8a3a1a; --d10: #1c5d4a; --rl: #c8412c; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   body { background-image: radial-gradient(circle at 20% 10%, rgba(176,138,58,0.08), transparent 40%), radial-gradient(circle at 90% 80%, rgba(28,93,74,0.06), transparent 50%); min-height: 100vh; }
@@ -25,7 +20,8 @@
   .masthead h1 { font-family: 'Fraunces', serif; font-weight: 800; font-style: italic; margin: 0; font-size: clamp(24px, 4.6vw, 46px); letter-spacing: -0.02em; text-align: center; line-height: 1; }
   .masthead h1 span.amp { color: var(--accent); font-style: italic; }
   .subline { text-align: center; margin-top: 8px; font-family: 'Fraunces', serif; font-style: italic; color: var(--muted); font-size: 13px; }
-  .ornament { text-align: center; font-family: 'Fraunces', serif; color: var(--gold); font-size: 16px; letter-spacing: 0.4em; margin: 4px 0; }
+  .byline { text-align: center; margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent-2); }
+  .ornament { text-align: center; font-family: 'Fraunces', serif; color: var(--gold); font-size: 16px; letter-spacing: 0.4em; margin: 6px 0 4px; }
   .rule-thin { border-top: 1px solid var(--ink); margin-top: 6px; }
   .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; margin-top: 22px; }
   @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
@@ -51,6 +47,7 @@
   .hero .big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1; margin-top: 4px; }
   .hero .big .unit { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--gold); margin-left: 6px; letter-spacing: 0.05em; }
   .hero .formula { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(244,239,230,0.65); margin-top: 8px; letter-spacing: 0.04em; }
+  .protocol-tag { display: inline-block; background: var(--accent); color: var(--paper); padding: 3px 8px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.14em; margin-top: 10px; }
   .iv-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink); border: 1px solid var(--ink); margin-bottom: 14px; }
   .iv-comp { background: var(--paper); padding: 14px; }
   .iv-comp.d10 { border-top: 4px solid var(--d10); }
@@ -83,6 +80,8 @@
   .warn-box { background: var(--paper); border-left: 4px solid var(--warn); padding: 10px 12px; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.5; color: var(--warn); }
   footer { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
   footer em { font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .footer-credit { width: 100%; text-align: center; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--muted); font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; text-transform: none; letter-spacing: 0.02em; color: var(--ink); }
+  .footer-credit strong { font-weight: 800; color: var(--accent-2); }
   .pulse { animation: pulse 0.4s ease; }
   @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.04);} 100%{transform:scale(1);} }
 </style>
@@ -96,18 +95,20 @@
   </header>
   <div class="ornament">❦ ✦ ❦</div>
   <div class="subline">Ugandan Paediatric Association · Small &amp; Sick Newborn Guidelines 2017–2018</div>
+  <div class="byline">Prepared by Dr. Okello Morrish Obol</div>
   <div class="rule-thin"></div>
   <div class="grid">
     <section class="card">
       <div class="kicker">§ I — Patient details</div>
       <h2>Enter the baby</h2>
       <div class="field" style="margin-top:14px;">
-        <label>Route</label>
+        <label>Route preference (Day 3–6)</label>
         <div class="seg three" id="modeSeg">
           <button data-m="iv" class="active">IV only</button>
           <button data-m="oral">Oral / NGT</button>
           <button data-m="mixed">Mixed (IV + oral)</button>
         </div>
+        <div class="hint">Day 1 = NPO (all IV) · Day 2 = all IV as D10 · Day 7 = full oral</div>
       </div>
       <div class="row2">
         <div class="field">
@@ -142,13 +143,13 @@
         </div>
       </div>
       <div class="field">
-        <label>IV fluid availability</label>
+        <label>IV fluid availability (Day 3–6)</label>
         <select id="iv">
           <option value="split" selected>No premixed — split ⅔ D10 + ⅓ NS/RL</option>
           <option value="nhalfd10">N/2 D10 (premixed) — single line</option>
           <option value="d10only">D10 only — single line</option>
         </select>
-        <div class="hint">Matches your bedside formula</div>
+        <div class="hint">Day 1 &amp; 2 always given as D10 only</div>
       </div>
       <div class="warn-box" id="warn" style="display:none;"></div>
     </section>
@@ -162,6 +163,7 @@
         <div class="label">Total fluid requirement (Neonatal fluids)</div>
         <div class="big" id="tfrTotal">— <span class="unit">mL/day</span></div>
         <div class="formula" id="tfrFormula">—</div>
+        <div class="protocol-tag" id="protocolTag" style="display:none;"></div>
       </div>
       <div id="ivBlock">
         <div class="kicker" style="margin-bottom:6px;">§ III — IV breakdown</div>
@@ -193,11 +195,21 @@
   <footer>
     <div>Ref: Ugandan Paediatric Association · Pronto International 2018</div>
     <div><em>Decision support — verify with bedside judgement.</em></div>
+    <div class="footer-credit">Prepared by <strong>Dr. Okello Morrish Obol</strong></div>
   </footer>
 </div>
 <script>
 const TFR = { 1:60, 2:80, 3:100, 4:120, 5:140, 6:160, 7:180 };
 function getTFR(dol) { if (dol < 1) return 60; if (dol >= 7) return 180; return TFR[dol]; }
+
+// Returns the effective protocol for a given DOL
+function getProtocol(dol, userMode, userIv, userSplit) {
+  if (dol === 1) return { ivFrac: 1, oralFrac: 0, ivType: 'd10only', forced: true, label: 'Day 1: NPO — all IV (D10)' };
+  if (dol === 2) return { ivFrac: 1, oralFrac: 0, ivType: 'd10only', forced: true, label: 'Day 2: All IV given as D10' };
+  if (dol >= 7) return { ivFrac: 0, oralFrac: 1, ivType: null, forced: true, label: 'Day 7: Full oral feeds — no IV' };
+  let ivFrac = userMode === 'iv' ? 1 : userMode === 'oral' ? 0 : userSplit/100;
+  return { ivFrac, oralFrac: 1 - ivFrac, ivType: userIv, forced: false, label: '' };
+}
 
 const state = { mode: 'iv', weight: 2700, dol: 1, interval: 3, split: 50, iv: 'split' };
 
@@ -206,43 +218,47 @@ function calc() {
   const tfrPerKg = getTFR(state.dol);
   const tfrTotal = tfrPerKg * wkg;
   const feedsPerDay = 24 / state.interval;
-  let ivFrac = 0, oralFrac = 0;
-  if (state.mode === 'iv') { ivFrac = 1; }
-  else if (state.mode === 'oral') { oralFrac = 1; }
-  else { ivFrac = state.split / 100; oralFrac = 1 - ivFrac; }
-  const ivDaily = tfrTotal * ivFrac;
-  const oralDaily = tfrTotal * oralFrac;
+  const proto = getProtocol(state.dol, state.mode, state.iv, state.split);
+  const ivDaily = tfrTotal * proto.ivFrac;
+  const oralDaily = tfrTotal * proto.oralFrac;
   const ivHourly = ivDaily / 24;
   const perFeed = oralDaily / feedsPerDay;
+
   let ivComponents = [];
-  if (ivDaily > 0) {
-    if (state.iv === 'split') {
+  if (ivDaily > 0 && proto.ivType) {
+    if (proto.ivType === 'split') {
       ivComponents = [
         { name: 'D10 (Dextrose 10%)', tag: '⅔ component', rate: ivHourly * (2/3), daily: ivDaily * (2/3), cls: 'd10' },
         { name: 'Normal Saline or RL', tag: '⅓ component', rate: ivHourly * (1/3), daily: ivDaily * (1/3), cls: 'rl' }
       ];
-    } else if (state.iv === 'nhalfd10') {
+    } else if (proto.ivType === 'nhalfd10') {
       ivComponents = [{ name: 'N/2 D10 (premixed)', tag: 'Single line', rate: ivHourly, daily: ivDaily, cls: 'd10' }];
     } else {
-      ivComponents = [{ name: 'D10 only', tag: 'Single line', rate: ivHourly, daily: ivDaily, cls: 'd10' }];
+      ivComponents = [{ name: 'D10 only (Dextrose 10%)', tag: 'Single line', rate: ivHourly, daily: ivDaily, cls: 'd10' }];
     }
   }
+
   let dexConc = 10, dexRate = 0;
-  if (state.iv === 'split') dexRate = ivHourly * (2/3);
-  else dexRate = ivHourly;
-  const gir = wkg > 0 ? (dexRate * dexConc * 10) / (60 * wkg) : 0;
+  if (proto.ivType === 'split') dexRate = ivHourly * (2/3);
+  else if (proto.ivType) dexRate = ivHourly;
+  const gir = (wkg > 0 && dexRate > 0) ? (dexRate * dexConc * 10) / (60 * wkg) : 0;
   const oralKcal = oralDaily * 0.67;
-  const ivKcal = (state.iv === 'split' ? ivDaily * (2/3) : ivDaily) * (dexConc/100) * 3.4;
+  const ivKcal = (proto.ivType === 'split' ? ivDaily * (2/3) : ivDaily) * (dexConc/100) * 3.4;
   const kcalPerKg = wkg > 0 ? (oralKcal + ivKcal) / wkg : 0;
-  return { wkg, tfrPerKg, tfrTotal, feedsPerDay, ivDaily, oralDaily, ivHourly, perFeed, ivComponents, gir, kcalPerKg };
+
+  return { wkg, tfrPerKg, tfrTotal, feedsPerDay, ivDaily, oralDaily, ivHourly, perFeed, ivComponents, gir, kcalPerKg, proto };
 }
 const fmt = (n, d=0) => isFinite(n) ? n.toLocaleString(undefined, {minimumFractionDigits:d, maximumFractionDigits:d}) : '—';
+
 function render() {
   const r = calc();
   document.getElementById('outTitle').textContent = `Day ${state.dol} — TFR ${r.tfrPerKg} mL/kg/d`;
   document.getElementById('outMeta').textContent = `${r.wkg.toFixed(2)} kg`;
   document.getElementById('tfrTotal').innerHTML = `${fmt(r.tfrTotal, 0)} <span class="unit">mL/day</span>`;
   document.getElementById('tfrFormula').textContent = `${r.tfrPerKg} mL/kg/d × ${r.wkg.toFixed(2)} kg = ${fmt(r.tfrTotal, 0)} mL/24 hr`;
+  const tag = document.getElementById('protocolTag');
+  if (r.proto.forced) { tag.textContent = r.proto.label; tag.style.display = 'inline-block'; }
+  else { tag.style.display = 'none'; }
   const ivBlock = document.getElementById('ivBlock');
   const ivSplit = document.getElementById('ivSplit');
   if (r.ivComponents.length === 0) { ivBlock.style.display = 'none'; }
@@ -251,8 +267,8 @@ function render() {
     ivSplit.style.gridTemplateColumns = r.ivComponents.length === 2 ? '1fr 1fr' : '1fr';
     ivSplit.innerHTML = r.ivComponents.map(c => `<div class="iv-comp ${c.cls}"><div class="tag">${c.tag}</div><div class="name">${c.name}</div><div class="rate">${fmt(c.rate, 2)}<span class="unit">mL/hr</span></div><div class="vol">≈ ${fmt(c.daily, 0)} mL over 24 hr</div></div>`).join('');
   }
-  setVal('perFeed', state.mode === 'iv' ? '—' : fmt(r.perFeed, 1), state.mode === 'iv' ? '' : `mL × q${state.interval}h`);
-  setVal('ivHour', state.mode === 'oral' ? '—' : fmt(r.ivHourly, 2), state.mode === 'oral' ? '' : 'mL/hr');
+  setVal('perFeed', r.oralDaily === 0 ? '—' : fmt(r.perFeed, 1), r.oralDaily === 0 ? '' : `mL × q${state.interval}h`);
+  setVal('ivHour', r.ivDaily === 0 ? '—' : fmt(r.ivHourly, 2), r.ivDaily === 0 ? '' : 'mL/hr');
   setVal('gir', r.gir > 0 ? fmt(r.gir, 1) : '—', r.gir > 0 ? 'mg/kg/min' : '');
   setVal('kcal', fmt(r.kcalPerKg, 0), 'kcal/kg/d');
   renderSchedule();
@@ -270,32 +286,38 @@ function renderSchedule() {
   for (let d = 1; d <= 7; d++) {
     const tfr = getTFR(d);
     const total = tfr * wkg;
-    let ivFrac = state.mode === 'iv' ? 1 : state.mode === 'oral' ? 0 : state.split/100;
-    const ivHr = total * ivFrac / 24;
-    const oral = total * (1 - ivFrac);
+    const proto = getProtocol(d, state.mode, state.iv, state.split);
+    const ivHr = total * proto.ivFrac / 24;
+    const oral = total * proto.oralFrac;
     const pf = oral / (24/state.interval);
     const cls = d === state.dol ? ' current' : '';
-    const ivCell = state.mode === 'oral' ? '—' : fmt(ivHr, 2);
-    const pfCell = state.mode === 'iv' ? '—' : fmt(pf, 1);
+    const ivCell = proto.ivFrac === 0 ? '— (oral)' : fmt(ivHr, 2);
+    const pfCell = proto.oralFrac === 0 ? '— (NPO)' : fmt(pf, 1);
     rows.push(`<div class="sched-row${cls}"><div>${d}</div><div>${tfr}</div><div>${fmt(total,0)}</div><div>${ivCell}</div><div>${pfCell}</div></div>`);
   }
   document.getElementById('schedule').innerHTML = rows.join('');
 }
 function renderNotes(r) {
   const notes = [];
-  if (state.iv === 'split' && state.mode !== 'oral') {
+  if (state.dol === 1) {
+    notes.push(`<b>Day 1 — NPO Protocol</b><p>Baby is kept nil per os on Day 1. All fluids given IV as <strong>D10 only</strong> at <strong>${fmt(r.ivHourly, 2)} mL/hr</strong>. Initiate trophic feeds from Day 2 onward as per unit protocol.</p>`);
+  } else if (state.dol === 2) {
+    notes.push(`<b>Day 2 — D10 Only Protocol</b><p>All IV fluids given as <strong>D10 only</strong> at <strong>${fmt(r.ivHourly, 2)} mL/hr</strong>. No NS/RL split on Day 2. Oral feeds typically introduced from Day 3 if baby is stable.</p>`);
+  } else if (state.dol >= 7) {
+    notes.push(`<b>Day 7+ — Full Oral Feeds</b><p>By Day 7, baby is on full oral/NGT feeds — <strong>no IV fluids</strong> required. Each feed = <strong>${fmt(r.perFeed, 1)} mL</strong> every ${state.interval} hours (${r.feedsPerDay}×/day).</p>`);
+  } else if (r.proto.ivType === 'split' && r.ivComponents.length === 2) {
     const d10 = r.ivComponents[0];
     const rl = r.ivComponents[1];
-    notes.push(`<b>IV fluid orders</b><p>Run as two parallel lines: <strong>D10 at ${fmt(d10.rate, 2)} mL/hr</strong> and <strong>NS or RL at ${fmt(rl.rate, 2)} mL/hr</strong>. This achieves the equivalent of N/2 D10 when premixed is unavailable. Combined hourly = ${fmt(r.ivHourly, 2)} mL/hr.</p>`);
+    notes.push(`<b>IV fluid orders (Day ${state.dol})</b><p>Run as two parallel lines: <strong>D10 at ${fmt(d10.rate, 2)} mL/hr</strong> and <strong>NS or RL at ${fmt(rl.rate, 2)} mL/hr</strong>. This achieves the equivalent of N/2 D10 when premixed is unavailable. Combined hourly = ${fmt(r.ivHourly, 2)} mL/hr.</p>`);
   }
   if (state.dol === 1 && state.weight < 1500) {
-    notes.push(`<b>VLBW Day 1</b><p>For babies &lt; 1.5 kg, UPA recommends starting at <strong>80 mL/kg/d on Day 1</strong> instead of 60 due to higher insensible losses.</p>`);
+    notes.push(`<b>VLBW Day 1</b><p>For babies &lt; 1.5 kg, UPA recommends starting at <strong>80 mL/kg/d on Day 1</strong> instead of 60.</p>`);
   }
-  if (state.mode !== 'iv') {
+  if (r.oralDaily > 0) {
     notes.push(`<b>Feeding technique</b><p>EBM by cup, spoon, or NGT for babies unable to suck. Burp midway and after feeds. Position semi-upright 20–30 minutes post-feed.</p>`);
   }
   notes.push(`<b>Monitoring</b><p>Daily weight, urine output (≥1 mL/kg/hr after DOL 2), random blood sugar (RBS) 2–4 hourly initially, electrolytes DOL 2–3, feeding tolerance.</p>`);
-  notes.push(`<b>Bedside formula reference</b><p style="font-family:'JetBrains Mono',monospace;font-size:12px;">IV rate (mL/hr) = (TFR × wt) ÷ 24<br>Per feed (q3h) = (TFR × wt) ÷ 8<br>D10 = ⅔ of IV rate · NS/RL = ⅓ of IV rate</p>`);
+  notes.push(`<b>Bedside formula reference</b><p style="font-family:'JetBrains Mono',monospace;font-size:12px;">IV rate (mL/hr) = (TFR × wt) ÷ 24<br>Per feed (q3h) = (TFR × wt) ÷ 8<br>Day 1 &amp; 2: D10 only · Day 3–6: ⅔ D10 + ⅓ NS/RL · Day 7: full oral</p>`);
   document.getElementById('notes').innerHTML = notes.join('');
 }
 function renderWarnings(r) {

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Neonatal Feeds & Fluids — UPA Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e1a14; --paper: #f4efe6; --paper-2: #ebe4d6;
+    --accent: #c8412c; --accent-2: #1c5d4a; --gold: #b08a3a;
+    --muted: #6b6356; --warn: #8a3a1a;
+    --d10: #1c5d4a; --rl: #c8412c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background-image: radial-gradient(circle at 20% 10%, rgba(176,138,58,0.08), transparent 40%), radial-gradient(circle at 90% 80%, rgba(28,93,74,0.06), transparent 50%); min-height: 100vh; }
+  .grain::before { content: ""; position: fixed; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); opacity: 0.6; mix-blend-mode: multiply; z-index: 1000; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 18px 60px; }
+  .masthead { border-top: 6px double var(--ink); border-bottom: 1px solid var(--ink); padding: 14px 0 10px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+  .masthead .left, .masthead .right { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+  .masthead .right { text-align: right; }
+  .masthead h1 { font-family: 'Fraunces', serif; font-weight: 800; font-style: italic; margin: 0; font-size: clamp(24px, 4.6vw, 46px); letter-spacing: -0.02em; text-align: center; line-height: 1; }
+  .masthead h1 span.amp { color: var(--accent); font-style: italic; }
+  .subline { text-align: center; margin-top: 8px; font-family: 'Fraunces', serif; font-style: italic; color: var(--muted); font-size: 13px; }
+  .ornament { text-align: center; font-family: 'Fraunces', serif; color: var(--gold); font-size: 16px; letter-spacing: 0.4em; margin: 4px 0; }
+  .rule-thin { border-top: 1px solid var(--ink); margin-top: 6px; }
+  .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; margin-top: 22px; }
+  @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--paper-2); border: 1px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 20px; }
+  .card h2 { font-family: 'Fraunces', serif; font-weight: 800; margin: 0 0 4px; font-size: 20px; letter-spacing: -0.01em; }
+  .kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 12px; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .field label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .field .hint { font-family: 'Fraunces', serif; font-style: italic; color: var(--muted); font-size: 12px; }
+  input[type="number"], select { font-family: 'JetBrains Mono', monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); outline: none; transition: box-shadow .15s ease; }
+  input[type="number"]:focus, select:focus { box-shadow: 3px 3px 0 var(--accent); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .seg { display: grid; border: 1px solid var(--ink); overflow: hidden; }
+  .seg.three { grid-template-columns: repeat(3, 1fr); }
+  .seg button { background: var(--paper); border: 0; border-right: 1px solid var(--ink); padding: 10px 6px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink); }
+  .seg button:last-child { border-right: 0; }
+  .seg button.active { background: var(--ink); color: var(--paper); }
+  .out-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 10px; margin-bottom: 14px; }
+  .out-head .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+  .hero { background: var(--ink); color: var(--paper); padding: 18px; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .hero::after { content: "TFR"; position: absolute; right: 14px; top: 6px; font-family: 'Fraunces', serif; font-style: italic; font-weight: 800; font-size: 64px; color: rgba(244,239,230,0.06); letter-spacing: -0.04em; }
+  .hero .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold); }
+  .hero .big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1; margin-top: 4px; }
+  .hero .big .unit { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: var(--gold); margin-left: 6px; letter-spacing: 0.05em; }
+  .hero .formula { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(244,239,230,0.65); margin-top: 8px; letter-spacing: 0.04em; }
+  .iv-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink); border: 1px solid var(--ink); margin-bottom: 14px; }
+  .iv-comp { background: var(--paper); padding: 14px; }
+  .iv-comp.d10 { border-top: 4px solid var(--d10); }
+  .iv-comp.rl { border-top: 4px solid var(--rl); }
+  .iv-comp .tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; }
+  .iv-comp.d10 .tag { color: var(--d10); }
+  .iv-comp.rl .tag { color: var(--rl); }
+  .iv-comp .name { font-family: 'Fraunces', serif; font-weight: 800; font-size: 17px; margin-top: 2px; }
+  .iv-comp .rate { font-family: 'Fraunces', serif; font-weight: 800; font-size: 26px; margin-top: 6px; letter-spacing: -0.01em; }
+  .iv-comp .rate .unit { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+  .iv-comp .vol { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink); border: 1px solid var(--ink); margin-bottom: 14px; }
+  .stat { background: var(--paper); padding: 12px 14px; }
+  .stat .label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
+  .stat .val { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; line-height: 1.05; margin-top: 4px; letter-spacing: -0.01em; }
+  .stat .val .unit { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+  .stat.accent .val { color: var(--accent); }
+  .stat.green .val { color: var(--accent-2); }
+  .sched { border: 1px solid var(--ink); margin-bottom: 14px; overflow-x: auto; }
+  .sched-row { display: grid; grid-template-columns: 50px 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; min-width: 480px; }
+  .sched-row:last-child { border-bottom: 0; }
+  .sched-row.head { background: var(--ink); color: var(--paper); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .sched-row > div { padding: 7px 8px; border-right: 1px solid var(--ink); }
+  .sched-row > div:last-child { border-right: 0; }
+  .sched-row.current { background: rgba(200, 65, 44, 0.12); }
+  .sched-row.current > div:first-child { background: var(--accent); color: var(--paper); font-weight: 700; }
+  .notes { border-top: 1px dashed var(--ink); padding-top: 12px; margin-top: 12px; font-family: 'Fraunces', serif; font-size: 13.5px; line-height: 1.55; }
+  .notes b { font-family: 'Inter Tight', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.16em; color: var(--accent-2); display: block; margin-bottom: 4px; }
+  .notes p { margin: 0 0 8px; }
+  .warn-box { background: var(--paper); border-left: 4px solid var(--warn); padding: 10px 12px; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.5; color: var(--warn); }
+  footer { margin-top: 28px; border-top: 1px solid var(--ink); padding-top: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  footer em { font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .pulse { animation: pulse 0.4s ease; }
+  @keyframes pulse { 0%{transform:scale(1);} 50%{transform:scale(1.04);} 100%{transform:scale(1);} }
+</style>
+</head>
+<body class="grain">
+<div class="wrap">
+  <header class="masthead">
+    <div class="left">UPA Protocol</div>
+    <h1>Neonatal Feeds <span class="amp">&amp;</span> Fluids</h1>
+    <div class="right">Bedside Edition</div>
+  </header>
+  <div class="ornament">❦ ✦ ❦</div>
+  <div class="subline">Ugandan Paediatric Association · Small &amp; Sick Newborn Guidelines 2017–2018</div>
+  <div class="rule-thin"></div>
+  <div class="grid">
+    <section class="card">
+      <div class="kicker">§ I — Patient details</div>
+      <h2>Enter the baby</h2>
+      <div class="field" style="margin-top:14px;">
+        <label>Route</label>
+        <div class="seg three" id="modeSeg">
+          <button data-m="iv" class="active">IV only</button>
+          <button data-m="oral">Oral / NGT</button>
+          <button data-m="mixed">Mixed (IV + oral)</button>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Birth weight</label>
+          <input type="number" id="weight" value="2700" min="500" max="6000" step="50" />
+          <div class="hint">grams</div>
+        </div>
+        <div class="field">
+          <label>Day of life</label>
+          <input type="number" id="dol" value="1" min="1" max="14" step="1" />
+          <div class="hint">DOL 1 = day of birth</div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Feed interval</label>
+          <select id="interval">
+            <option value="1">Hourly (24×/day)</option>
+            <option value="2">2-hourly (12×/day)</option>
+            <option value="3" selected>3-hourly (8×/day)</option>
+          </select>
+          <div class="hint">UPA standard = 3-hourly</div>
+        </div>
+        <div class="field">
+          <label>Mixed split (IV : oral)</label>
+          <select id="split">
+            <option value="100">100% IV</option>
+            <option value="75">75 / 25</option>
+            <option value="50" selected>50 / 50</option>
+            <option value="25">25 / 75</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>IV fluid availability</label>
+        <select id="iv">
+          <option value="split" selected>No premixed — split ⅔ D10 + ⅓ NS/RL</option>
+          <option value="nhalfd10">N/2 D10 (premixed) — single line</option>
+          <option value="d10only">D10 only — single line</option>
+        </select>
+        <div class="hint">Matches your bedside formula</div>
+      </div>
+      <div class="warn-box" id="warn" style="display:none;"></div>
+    </section>
+    <section class="card">
+      <div class="kicker">§ II — Calculated orders</div>
+      <div class="out-head">
+        <h2 id="outTitle">Day 1</h2>
+        <div class="meta" id="outMeta">2.7 kg</div>
+      </div>
+      <div class="hero">
+        <div class="label">Total fluid requirement (Neonatal fluids)</div>
+        <div class="big" id="tfrTotal">— <span class="unit">mL/day</span></div>
+        <div class="formula" id="tfrFormula">—</div>
+      </div>
+      <div id="ivBlock">
+        <div class="kicker" style="margin-bottom:6px;">§ III — IV breakdown</div>
+        <div class="iv-split" id="ivSplit"></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat green">
+          <div class="label">Per oral feed</div>
+          <div class="val" id="perFeed">—<span class="unit">mL</span></div>
+        </div>
+        <div class="stat">
+          <div class="label">Total IV / hr</div>
+          <div class="val" id="ivHour">—<span class="unit">mL/hr</span></div>
+        </div>
+        <div class="stat accent">
+          <div class="label">GIR</div>
+          <div class="val" id="gir">—<span class="unit">mg/kg/min</span></div>
+        </div>
+        <div class="stat">
+          <div class="label">Caloric intake</div>
+          <div class="val" id="kcal">—<span class="unit">kcal/kg/d</span></div>
+        </div>
+      </div>
+      <div class="kicker" style="margin-top:6px;">§ IV — 7-day schedule</div>
+      <div class="sched" id="schedule"></div>
+      <div class="notes" id="notes"></div>
+    </section>
+  </div>
+  <footer>
+    <div>Ref: Ugandan Paediatric Association · Pronto International 2018</div>
+    <div><em>Decision support — verify with bedside judgement.</em></div>
+  </footer>
+</div>
+<script>
+const TFR = { 1:60, 2:80, 3:100, 4:120, 5:140, 6:160, 7:180 };
+function getTFR(dol) { if (dol < 1) return 60; if (dol >= 7) return 180; return TFR[dol]; }
+
+const state = { mode: 'iv', weight: 2700, dol: 1, interval: 3, split: 50, iv: 'split' };
+
+function calc() {
+  const wkg = state.weight / 1000;
+  const tfrPerKg = getTFR(state.dol);
+  const tfrTotal = tfrPerKg * wkg;
+  const feedsPerDay = 24 / state.interval;
+  let ivFrac = 0, oralFrac = 0;
+  if (state.mode === 'iv') { ivFrac = 1; }
+  else if (state.mode === 'oral') { oralFrac = 1; }
+  else { ivFrac = state.split / 100; oralFrac = 1 - ivFrac; }
+  const ivDaily = tfrTotal * ivFrac;
+  const oralDaily = tfrTotal * oralFrac;
+  const ivHourly = ivDaily / 24;
+  const perFeed = oralDaily / feedsPerDay;
+  let ivComponents = [];
+  if (ivDaily > 0) {
+    if (state.iv === 'split') {
+      ivComponents = [
+        { name: 'D10 (Dextrose 10%)', tag: '⅔ component', rate: ivHourly * (2/3), daily: ivDaily * (2/3), cls: 'd10' },
+        { name: 'Normal Saline or RL', tag: '⅓ component', rate: ivHourly * (1/3), daily: ivDaily * (1/3), cls: 'rl' }
+      ];
+    } else if (state.iv === 'nhalfd10') {
+      ivComponents = [{ name: 'N/2 D10 (premixed)', tag: 'Single line', rate: ivHourly, daily: ivDaily, cls: 'd10' }];
+    } else {
+      ivComponents = [{ name: 'D10 only', tag: 'Single line', rate: ivHourly, daily: ivDaily, cls: 'd10' }];
+    }
+  }
+  let dexConc = 10, dexRate = 0;
+  if (state.iv === 'split') dexRate = ivHourly * (2/3);
+  else dexRate = ivHourly;
+  const gir = wkg > 0 ? (dexRate * dexConc * 10) / (60 * wkg) : 0;
+  const oralKcal = oralDaily * 0.67;
+  const ivKcal = (state.iv === 'split' ? ivDaily * (2/3) : ivDaily) * (dexConc/100) * 3.4;
+  const kcalPerKg = wkg > 0 ? (oralKcal + ivKcal) / wkg : 0;
+  return { wkg, tfrPerKg, tfrTotal, feedsPerDay, ivDaily, oralDaily, ivHourly, perFeed, ivComponents, gir, kcalPerKg };
+}
+const fmt = (n, d=0) => isFinite(n) ? n.toLocaleString(undefined, {minimumFractionDigits:d, maximumFractionDigits:d}) : '—';
+function render() {
+  const r = calc();
+  document.getElementById('outTitle').textContent = `Day ${state.dol} — TFR ${r.tfrPerKg} mL/kg/d`;
+  document.getElementById('outMeta').textContent = `${r.wkg.toFixed(2)} kg`;
+  document.getElementById('tfrTotal').innerHTML = `${fmt(r.tfrTotal, 0)} <span class="unit">mL/day</span>`;
+  document.getElementById('tfrFormula').textContent = `${r.tfrPerKg} mL/kg/d × ${r.wkg.toFixed(2)} kg = ${fmt(r.tfrTotal, 0)} mL/24 hr`;
+  const ivBlock = document.getElementById('ivBlock');
+  const ivSplit = document.getElementById('ivSplit');
+  if (r.ivComponents.length === 0) { ivBlock.style.display = 'none'; }
+  else {
+    ivBlock.style.display = 'block';
+    ivSplit.style.gridTemplateColumns = r.ivComponents.length === 2 ? '1fr 1fr' : '1fr';
+    ivSplit.innerHTML = r.ivComponents.map(c => `<div class="iv-comp ${c.cls}"><div class="tag">${c.tag}</div><div class="name">${c.name}</div><div class="rate">${fmt(c.rate, 2)}<span class="unit">mL/hr</span></div><div class="vol">≈ ${fmt(c.daily, 0)} mL over 24 hr</div></div>`).join('');
+  }
+  setVal('perFeed', state.mode === 'iv' ? '—' : fmt(r.perFeed, 1), state.mode === 'iv' ? '' : `mL × q${state.interval}h`);
+  setVal('ivHour', state.mode === 'oral' ? '—' : fmt(r.ivHourly, 2), state.mode === 'oral' ? '' : 'mL/hr');
+  setVal('gir', r.gir > 0 ? fmt(r.gir, 1) : '—', r.gir > 0 ? 'mg/kg/min' : '');
+  setVal('kcal', fmt(r.kcalPerKg, 0), 'kcal/kg/d');
+  renderSchedule();
+  renderNotes(r);
+  renderWarnings(r);
+}
+function setVal(id, val, unit) {
+  const el = document.getElementById(id);
+  el.innerHTML = unit ? `${val}<span class="unit">${unit}</span>` : val;
+  el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+}
+function renderSchedule() {
+  const wkg = state.weight / 1000;
+  const rows = [`<div class="sched-row head"><div>DOL</div><div>TFR mL/kg/d</div><div>Total mL/24h</div><div>IV mL/hr</div><div>Per feed (q${state.interval}h)</div></div>`];
+  for (let d = 1; d <= 7; d++) {
+    const tfr = getTFR(d);
+    const total = tfr * wkg;
+    let ivFrac = state.mode === 'iv' ? 1 : state.mode === 'oral' ? 0 : state.split/100;
+    const ivHr = total * ivFrac / 24;
+    const oral = total * (1 - ivFrac);
+    const pf = oral / (24/state.interval);
+    const cls = d === state.dol ? ' current' : '';
+    const ivCell = state.mode === 'oral' ? '—' : fmt(ivHr, 2);
+    const pfCell = state.mode === 'iv' ? '—' : fmt(pf, 1);
+    rows.push(`<div class="sched-row${cls}"><div>${d}</div><div>${tfr}</div><div>${fmt(total,0)}</div><div>${ivCell}</div><div>${pfCell}</div></div>`);
+  }
+  document.getElementById('schedule').innerHTML = rows.join('');
+}
+function renderNotes(r) {
+  const notes = [];
+  if (state.iv === 'split' && state.mode !== 'oral') {
+    const d10 = r.ivComponents[0];
+    const rl = r.ivComponents[1];
+    notes.push(`<b>IV fluid orders</b><p>Run as two parallel lines: <strong>D10 at ${fmt(d10.rate, 2)} mL/hr</strong> and <strong>NS or RL at ${fmt(rl.rate, 2)} mL/hr</strong>. This achieves the equivalent of N/2 D10 when premixed is unavailable. Combined hourly = ${fmt(r.ivHourly, 2)} mL/hr.</p>`);
+  }
+  if (state.dol === 1 && state.weight < 1500) {
+    notes.push(`<b>VLBW Day 1</b><p>For babies &lt; 1.5 kg, UPA recommends starting at <strong>80 mL/kg/d on Day 1</strong> instead of 60 due to higher insensible losses.</p>`);
+  }
+  if (state.mode !== 'iv') {
+    notes.push(`<b>Feeding technique</b><p>EBM by cup, spoon, or NGT for babies unable to suck. Burp midway and after feeds. Position semi-upright 20–30 minutes post-feed.</p>`);
+  }
+  notes.push(`<b>Monitoring</b><p>Daily weight, urine output (≥1 mL/kg/hr after DOL 2), random blood sugar (RBS) 2–4 hourly initially, electrolytes DOL 2–3, feeding tolerance.</p>`);
+  notes.push(`<b>Bedside formula reference</b><p style="font-family:'JetBrains Mono',monospace;font-size:12px;">IV rate (mL/hr) = (TFR × wt) ÷ 24<br>Per feed (q3h) = (TFR × wt) ÷ 8<br>D10 = ⅔ of IV rate · NS/RL = ⅓ of IV rate</p>`);
+  document.getElementById('notes').innerHTML = notes.join('');
+}
+function renderWarnings(r) {
+  const w = [];
+  if (state.weight < 1000) w.push('⚠ ELBW (<1000 g): consider 90–100 mL/kg/d on DOL 1; humidified incubator.');
+  if (state.weight < 1500 && state.dol === 1 && r.tfrPerKg === 60) w.push('⚠ Weight <1.5 kg on DOL 1 — UPA recommends starting at 80 mL/kg/d.');
+  if (r.gir > 0 && r.gir < 4) w.push(`⚠ GIR ${r.gir.toFixed(1)} mg/kg/min — low; hypoglycaemia risk.`);
+  if (r.gir > 13) w.push(`⚠ GIR ${r.gir.toFixed(1)} mg/kg/min — high; hyperglycaemia risk.`);
+  if (r.kcalPerKg < 50 && state.dol >= 5) w.push(`⚠ Caloric intake ${Math.round(r.kcalPerKg)} kcal/kg/d below growth target (~110–130 by week 2).`);
+  const box = document.getElementById('warn');
+  if (w.length) { box.innerHTML = w.join('<br>'); box.style.display = 'block'; }
+  else { box.style.display = 'none'; }
+}
+document.querySelectorAll('#modeSeg button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#modeSeg button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.mode = btn.dataset.m;
+    render();
+  });
+});
+['weight','dol'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => { state[id] = parseFloat(e.target.value) || 0; render(); });
+});
+['interval','split','iv'].forEach(id => {
+  document.getElementById(id).addEventListener('change', e => {
+    state[id] = (id === 'iv') ? e.target.value : parseFloat(e.target.value);
+    render();
+  });
+});
+render();
+</script>
+</body>
+</html>
